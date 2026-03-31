@@ -1,0 +1,17 @@
+# Ignore dependencies
+node_modules/
+dist/
+build/
+.DS_Store
+
+# Ignore environment variables
+.env
+
+# Ignore dev scripts
+check_db.js
+inspect_db.js
+
+# Ignore logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
