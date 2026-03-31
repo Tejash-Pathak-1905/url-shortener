@@ -1,12 +1,22 @@
 const { Pool } = require('pg');
 
-const pool = new Pool({
-  user: process.env.DB_USER || 'postgres',
-  host: process.env.DB_HOST || 'localhost',
-  database: process.env.DB_NAME || 'urlshortener',
-  password: process.env.DB_PASSWORD || 'admin1234',
-  port: process.env.DB_PORT || 5432,
-});
+// Render provides a single DATABASE_URL string
+const connectionString = process.env.DATABASE_URL;
+
+const pool = connectionString 
+  ? new Pool({
+      connectionString,
+      ssl: {
+        rejectUnauthorized: false // Required for Render/ElephantSQL/Heroku
+      }
+    })
+  : new Pool({
+      user: process.env.DB_USER || 'postgres',
+      host: process.env.DB_HOST || 'localhost',
+      database: process.env.DB_NAME || 'urlshortener',
+      password: process.env.DB_PASSWORD || 'admin1234',
+      port: process.env.DB_PORT || 5432,
+    });
 
 const initDb = async () => {
   const queryText = `
