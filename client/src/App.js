@@ -13,7 +13,7 @@ function App() {
   const [analyticsData, setAnalyticsData] = useState(null);
   const [copying, setCopying] = useState(false);
 
-  const API_BASE = process.env.REACT_APP_API_URL || 'http://localhost:3000';
+  const API_BASE = (process.env.REACT_APP_API_URL || 'http://localhost:3000').replace(/\/$/, '');
 
   const handleResponse = async (response) => {
     const contentType = response.headers.get('content-type');
